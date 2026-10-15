@@ -302,6 +302,7 @@ select {
 
 .hero-carousel .carousel-item {
     background: var(--hero-bg, #f0edff);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
 .hero-banner {

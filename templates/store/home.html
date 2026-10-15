@@ -7,7 +7,7 @@
 {% block content %}
 {% if banners %}
 <section class="hero-carousel">
-    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000" data-bs-pause="hover">
         <div class="carousel-inner">
             {% for banner in banners %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">

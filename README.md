@@ -43,39 +43,39 @@ A dynamic, full-stack e-commerce web application inspired by the sleek design ex
 
 ```text
 ecomm/
-├── manage.py                  # Django management script
-├── db.sqlite3                 # SQLite database
-├── ecomm/                     # Project configuration
+├── manage.py
+├── db.sqlite3
+├── ecomm/
 │   ├── settings.py
 │   ├── urls.py
 │   ├── wsgi.py
 │   └── asgi.py
-├── app/                       # Main application
-│   ├── models.py              # Category, Product, Banner models
-│   ├── views.py               # Storefront & account view logic
-│   ├── urls.py                # App routing
-│   ├── forms.py               # Registration & auth forms
-│   └── admin.py               # Customized admin site & metrics
-├── templates/                 # Django HTML templates
-│   ├── base.html              # Base layout with navigation & cursor
+├── app/
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── forms.py
+│   └── admin.py
+├── templates/
+│   ├── base.html
 │   ├── store/
-│   │   ├── home.html          # Dynamic homepage
-│   │   ├── products.html      # Catalog with search & filter
-│   │   ├── product_detail.html# Product details & related items
-│   │   ├── register.html      # User signup
-│   │   └── account.html       # Protected user dashboard
+│   │   ├── home.html
+│   │   ├── products.html
+│   │   ├── product_detail.html
+│   │   ├── register.html
+│   │   └── account.html
 │   ├── registration/
-│   │   └── login.html         # User sign-in
+│   │   └── login.html
 │   └── admin/
-│       ├── base_site.html     # Custom admin branding
-│       ├── index.html         # Admin KPI stats dashboard
-│       └── login.html         # Custom NOVA-styled admin login
-└── static/                    # Static assets
+│       ├── base_site.html
+│       ├── index.html
+│       └── login.html
+└── static/
     ├── css/
-    │   ├── style.css          # NOVA storefront design system
-    │   └── admin_custom.css   # Custom admin dashboard styles
+    │   ├── style.css
+    │   └── admin_custom.css
     └── js/
-        └── main.js            # Floating light cursor physics & UI
+        └── main.js
 ```
 
 ---
