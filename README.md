@@ -98,9 +98,11 @@ python manage.py runserver
 ```
 
 Open your browser and navigate to:
-- **Storefront:** [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-- **Product Catalog:** [http://127.0.0.1:8000/products/](http://127.0.0.1:8000/products/)
-- **Admin Portal:** [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+- **Storefront:** [https://nova-ecommerce-django.onrender.com](https://nova-ecommerce-django.onrender.com)
+- **Product Catalog:** [https://nova-ecommerce-django.onrender.com/products/](https://nova-ecommerce-django.onrender.com/products/)
+- **Admin Portal:** [https://nova-ecommerce-django.onrender.com/admin/](https://nova-ecommerce-django.onrender.com/admin/)
+
+*(For local development: [http://127.0.0.1:8000/](http://127.0.0.1:8000/))*
 
 ---
 
