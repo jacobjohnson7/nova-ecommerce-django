@@ -11,6 +11,9 @@ class Category(models.Model):
     image_url = models.URLField(blank=True)
     is_active = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name_plural = "Categories"
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
