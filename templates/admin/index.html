@@ -1,0 +1,45 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="dashboard-stats">
+    <div class="stat-card">
+        <div class="stat-info">
+            <span>Live Catalog</span>
+            <h3>{{ product_count|default:"9" }}</h3>
+        </div>
+        <div class="stat-icon">
+            <i class="bi bi-box-seam"></i>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-info">
+            <span>Categories</span>
+            <h3>{{ category_count|default:"4" }}</h3>
+        </div>
+        <div class="stat-icon">
+            <i class="bi bi-grid"></i>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-info">
+            <span>Hero Banners</span>
+            <h3>{{ banner_count|default:"2" }}</h3>
+        </div>
+        <div class="stat-icon">
+            <i class="bi bi-card-image"></i>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-info">
+            <span>Platform Users</span>
+            <h3>{{ user_count|default:"2" }}</h3>
+        </div>
+        <div class="stat-icon">
+            <i class="bi bi-people"></i>
+        </div>
+    </div>
+</div>
+
+{{ block.super }}
+{% endblock %}

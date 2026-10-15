@@ -1,0 +1,77 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} — NOVA{% endblock %}
+
+{% block content %}
+<section class="section-block detail-page">
+    <div class="container">
+        <div class="breadcrumb-line">
+            <a href="{% url 'home' %}">Home</a><i class="bi bi-chevron-right"></i>
+            <a href="{% url 'products' %}">Shop</a><i class="bi bi-chevron-right"></i>
+            <span>{{ product.name }}</span>
+        </div>
+
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <div class="detail-image">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    {% elif product.image_url %}
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    {% else %}
+                    <div class="product-placeholder"><i class="bi bi-camera"></i></div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <span class="eyebrow">{{ product.category.name|upper }}</span>
+                <h1 class="detail-title">{{ product.name }}</h1>
+                <div class="detail-price">₹{{ product.price }}</div>
+                <div class="detail-divider"></div>
+                <p class="detail-description">{{ product.description|linebreaksbr }}</p>
+                <div class="detail-points">
+                    <div><i class="bi bi-check-circle"></i> Thoughtfully selected</div>
+                    <div><i class="bi bi-shield-check"></i> Secure account experience</div>
+                </div>
+                <a href="{% url 'account' %}" class="btn btn-dark rounded-pill detail-button">Explore your account <i class="bi bi-arrow-up-right ms-2"></i></a>
+                <p class="detail-note">Product information and pricing are displayed for your review.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if related_products %}
+<section class="section-block related-section">
+    <div class="container">
+        <div class="section-heading">
+            <div><span class="eyebrow">MORE TO DISCOVER</span><h2>You might also like<span>.</span></h2></div>
+            <a href="{% url 'products' %}" class="text-link">Shop all <i class="bi bi-arrow-up-right"></i></a>
+        </div>
+        <div class="row g-4">
+            {% for item in related_products %}
+            <div class="col-6 col-lg-3">
+                <article class="product-card">
+                    <a href="{% url 'product_detail' item.slug %}" class="product-image">
+                        {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                        {% elif item.image_url %}
+                        <img src="{{ item.image_url }}" alt="{{ item.name }}">
+                        {% else %}
+                        <div class="product-placeholder"><i class="bi bi-camera"></i></div>
+                        {% endif %}
+                        <span class="product-view"><i class="bi bi-arrow-up-right"></i></span>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-category">{{ item.category.name }}</span>
+                        <a href="{% url 'product_detail' item.slug %}" class="product-name">{{ item.name }}</a>
+                        <div class="product-bottom"><span class="product-price">₹{{ item.price }}</span></div>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

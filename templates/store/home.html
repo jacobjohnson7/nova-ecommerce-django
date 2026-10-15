@@ -1,0 +1,166 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}NOVA — Technology, thoughtfully chosen{% endblock %}
+
+{% block content %}
+{% if banners %}
+<section class="hero-carousel">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for banner in banners %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="hero-banner" style="--hero-bg: {{ banner.background_color }};">
+                    <div class="container">
+                        <div class="hero-copy">
+                            <span class="eyebrow"><span class="eyebrow-dot"></span> THE NOVA EDITION</span>
+                            <h1>{{ banner.title }}</h1>
+                            <p>{{ banner.subtitle }}</p>
+                            <a href="{{ banner.button_link }}" class="btn btn-dark rounded-pill hero-button">
+                                {{ banner.button_text }} <i class="bi bi-arrow-up-right ms-2"></i>
+                            </a>
+                        </div>
+                        <div class="hero-visual">
+                            {% if banner.image %}
+                                <img src="{{ banner.image.url }}" alt="{{ banner.title }}">
+                            {% elif banner.image_url %}
+                                <img src="{{ banner.image_url }}" alt="{{ banner.title }}">
+                            {% else %}
+                                <div class="hero-placeholder"><i class="bi bi-stars"></i></div>
+                            {% endif %}
+                        </div>
+                        <span class="hero-index">0{{ forloop.counter }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if banners|length > 1 %}
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev" aria-label="Previous banner">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next" aria-label="Next banner">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+        {% endif %}
+    </div>
+</section>
+{% else %}
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <span class="eyebrow"><span class="eyebrow-dot"></span> MEET YOUR NEXT FAVOURITE</span>
+            <h1>Better things.<br><span>Better everyday.</span></h1>
+            <p>Discover technology that looks good, feels right, and fits beautifully into your world.</p>
+            <a href="{% url 'products' %}" class="btn btn-dark rounded-pill hero-button">
+                Explore the collection <i class="bi bi-arrow-up-right ms-2"></i>
+            </a>
+            <div class="hero-note"><i class="bi bi-check2-circle"></i> Carefully selected essentials</div>
+        </div>
+        <div class="hero-art">
+            <div class="art-circle"></div>
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=85" alt="Premium headphones">
+            <div class="floating-label"><span>THE EVERYDAY EDIT</span><strong>Made to be loved.</strong></div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="trust-strip">
+    <div class="container trust-grid">
+        <div><i class="bi bi-box-seam"></i><span>Thoughtful essentials</span></div>
+        <div><i class="bi bi-stars"></i><span>Curated collections</span></div>
+        <div><i class="bi bi-shield-check"></i><span>A simple, secure experience</span></div>
+    </div>
+</section>
+
+<section class="section-block">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">FIND YOUR THING</span>
+                <h2>Explore by category<span>.</span></h2>
+            </div>
+            <a class="text-link" href="{% url 'products' %}">View everything <i class="bi bi-arrow-up-right"></i></a>
+        </div>
+        <div class="row g-3 category-grid">
+            {% for category in categories %}
+            <div class="col-6 col-lg-3">
+                <a class="category-card" href="{% url 'products' %}?category={{ category.slug }}">
+                    <div class="category-image">
+                        {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                        {% elif category.image_url %}
+                        <img src="{{ category.image_url }}" alt="{{ category.name }}">
+                        {% else %}
+                        <div class="category-placeholder"><i class="bi bi-grid"></i></div>
+                        {% endif %}
+                        <span class="category-arrow"><i class="bi bi-arrow-up-right"></i></span>
+                    </div>
+                    <div class="category-title">{{ category.name }}</div>
+                    {% if category.description %}<p>{{ category.description|truncatechars:65 }}</p>{% endif %}
+                </a>
+            </div>
+            {% empty %}
+            <div class="col-12"><p class="muted-text">New categories are coming soon. Explore all products in the meantime.</p></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-block featured-section">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">A FEW GOOD THINGS</span>
+                <h2>Picked for you<span>.</span></h2>
+                <p class="section-description">Little upgrades that make a real difference.</p>
+            </div>
+            <a class="text-link" href="{% url 'products' %}">Shop all products <i class="bi bi-arrow-up-right"></i></a>
+        </div>
+        <div class="row g-4">
+            {% for product in products %}
+            <div class="col-6 col-lg-3">
+                <article class="product-card">
+                    <a href="{% url 'product_detail' product.slug %}" class="product-image">
+                        <span class="product-tag">FEATURED</span>
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        {% elif product.image_url %}
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                        {% else %}
+                        <div class="product-placeholder"><i class="bi bi-camera"></i></div>
+                        {% endif %}
+                        <span class="product-view"><i class="bi bi-arrow-up-right"></i></span>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-category">{{ product.category.name }}</span>
+                        <a href="{% url 'product_detail' product.slug %}" class="product-name">{{ product.name }}</a>
+                        <div class="product-bottom"><span class="product-price">₹{{ product.price }}</span><span class="product-arrow"><i class="bi bi-arrow-right"></i></span></div>
+                    </div>
+                </article>
+            </div>
+            {% empty %}
+            <div class="col-12 empty-featured">
+                <i class="bi bi-box-seam"></i>
+                <h5>Your collection starts here.</h5>
+                <p>Add products and mark them as featured in the admin panel.</p>
+                <a href="/admin/" class="text-link">Open product admin <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="closing-section">
+    <div class="container closing-inner">
+        <div>
+            <span class="eyebrow">GOOD TASTE, GOOD TECH</span>
+            <h2>Your everyday deserves<br>something better.</h2>
+        </div>
+        <a href="{% url 'products' %}" class="btn btn-light rounded-pill">Find your favourite <i class="bi bi-arrow-up-right ms-2"></i></a>
+    </div>
+    <div class="closing-orb"></div>
+</section>
+{% endblock %}

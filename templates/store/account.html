@@ -1,0 +1,43 @@
+
+{% extends "base.html" %}
+
+{% block title %}My Account — NOVA{% endblock %}
+
+{% block content %}
+<section class="account-page">
+    <div class="container">
+        <div class="account-welcome">
+            <span class="eyebrow">YOUR PERSONAL SPACE</span>
+            <h1>Hello, {{ user.username }}<span>.</span></h1>
+            <p>Welcome to your NOVA account.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="account-card account-profile">
+                    <div class="profile-icon"><i class="bi bi-person"></i></div>
+                    <h3>Your profile</h3>
+                    <p>Your account details at a glance.</p>
+                    <div class="account-detail"><span>Username</span><strong>{{ user.username }}</strong></div>
+                    <div class="account-detail"><span>Email</span><strong>{{ user.email|default:"Not provided" }}</strong></div>
+                    <div class="account-detail"><span>Member since</span><strong>{{ user.date_joined|date:"M Y" }}</strong></div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="account-card account-explore">
+                    <span class="eyebrow">THE GOOD STUFF</span>
+                    <h2>Something caught your eye?</h2>
+                    <p>Explore the collection and discover your next everyday essential.</p>
+                    <a href="{% url 'products' %}" class="btn btn-dark rounded-pill">Explore products <i class="bi bi-arrow-up-right ms-2"></i></a>
+                    <div class="account-art"><i class="bi bi-bag-heart"></i></div>
+                </div>
+                <div class="account-card account-help">
+                    <div><i class="bi bi-person-lock"></i><div><h5>Account security</h5><p>Remember to keep your password private.</p></div></div>
+                    <a href="{% url 'logout' %}" class="text-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out <i class="bi bi-arrow-right"></i></a>
+                    <form id="logout-form" method="post" action="{% url 'logout' %}" hidden>{% csrf_token %}</form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

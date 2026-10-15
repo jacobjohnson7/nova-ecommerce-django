@@ -1,0 +1,76 @@
+
+{% extends "base.html" %}
+
+{% block title %}Shop All — NOVA{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <span class="eyebrow">THE COMPLETE COLLECTION</span>
+        <h1>Good finds live here<span>.</span></h1>
+        <p>Thoughtfully picked technology for work, play, and everything in between.</p>
+    </div>
+</section>
+
+<section class="section-block products-page">
+    <div class="container">
+        <form method="get" action="{% url 'products' %}" class="filter-bar">
+            <div class="filter-search">
+                <i class="bi bi-search"></i>
+                <input type="search" name="q" value="{{ search }}" placeholder="Search the collection...">
+            </div>
+            <select name="category" class="form-select category-select" aria-label="Filter by category">
+                <option value="">All categories</option>
+                {% for category in categories %}
+                <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-dark rounded-pill filter-button" type="submit">Find products <i class="bi bi-arrow-right ms-1"></i></button>
+        </form>
+
+        <div class="results-heading">
+            <div>
+                <h2>Our collection</h2>
+                <p>{{ products|length }} product{{ products|length|pluralize }} to explore</p>
+            </div>
+            {% if search or selected_category %}
+            <a href="{% url 'products' %}" class="text-link">Clear filters <i class="bi bi-x-lg"></i></a>
+            {% endif %}
+        </div>
+
+        <div class="row g-4">
+            {% for product in products %}
+            <div class="col-6 col-lg-3">
+                <article class="product-card">
+                    <a href="{% url 'product_detail' product.slug %}" class="product-image">
+                        {% if product.is_featured %}<span class="product-tag">FEATURED</span>{% endif %}
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        {% elif product.image_url %}
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                        {% else %}
+                        <div class="product-placeholder"><i class="bi bi-camera"></i></div>
+                        {% endif %}
+                        <span class="product-view"><i class="bi bi-arrow-up-right"></i></span>
+                    </a>
+                    <div class="product-info">
+                        <span class="product-category">{{ product.category.name }}</span>
+                        <a href="{% url 'product_detail' product.slug %}" class="product-name">{{ product.name }}</a>
+                        <div class="product-bottom"><span class="product-price">₹{{ product.price }}</span><span class="product-arrow"><i class="bi bi-arrow-right"></i></span></div>
+                    </div>
+                </article>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="empty-state">
+                    <div class="empty-icon"><i class="bi bi-search"></i></div>
+                    <h3>Nothing here just yet.</h3>
+                    <p>Try a different search or browse the full collection.</p>
+                    <a href="{% url 'products' %}" class="btn btn-dark rounded-pill">See all products</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
